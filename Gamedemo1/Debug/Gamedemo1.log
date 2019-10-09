@@ -1,0 +1,5 @@
+﻿  Game.cpp
+D:\VisualSudio\Gamedemo1\Game.cpp(123,19): warning C4244:  'initializing': conversion from 'ULONGLONG' to 'DWORD', possible loss of data
+D:\VisualSudio\Gamedemo1\Game.cpp(136,13): warning C4244:  'initializing': conversion from 'ULONGLONG' to 'DWORD', possible loss of data
+D:\VisualSudio\Gamedemo1\Game.cpp(165,19): warning C4244:  '+=': conversion from 'float' to 'int', possible loss of data
+  Gamedemo1.vcxproj -> D:\VisualSudio\Gamedemo1\Debug\Gamedemo1.exe
