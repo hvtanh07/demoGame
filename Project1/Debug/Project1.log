@@ -1,0 +1,9 @@
+﻿  main.cpp
+D:\GIthub clone path\demoGame\Project1\main.cpp(283,20): warning C4018: '<': signed/unsigned mismatch
+D:\GIthub clone path\demoGame\Project1\main.cpp(288,20): warning C4018: '<': signed/unsigned mismatch
+D:\GIthub clone path\demoGame\Project1\main.cpp(352,41): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+D:\GIthub clone path\demoGame\Project1\main.cpp(352,38): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+D:\GIthub clone path\demoGame\Project1\main.cpp(356,21): warning C4018: '<': signed/unsigned mismatch
+D:\GIthub clone path\demoGame\Project1\main.cpp(422,19): warning C4244: 'initializing': conversion from 'ULONGLONG' to 'DWORD', possible loss of data
+D:\GIthub clone path\demoGame\Project1\main.cpp(435,13): warning C4244: 'initializing': conversion from 'ULONGLONG' to 'DWORD', possible loss of data
+  Project1.vcxproj -> D:\GIthub clone path\demoGame\Project1\Debug\Project1.exe
