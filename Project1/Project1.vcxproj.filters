@@ -31,6 +31,12 @@
     <Filter Include="Source Files\Map">
       <UniqueIdentifier>{112adb4f-8773-43f4-93ba-c570c3b874ac}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Character\Player">
+      <UniqueIdentifier>{4d08ef4a-5edd-4b9e-8a73-3f43332d86d2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Character\Player">
+      <UniqueIdentifier>{cbba9107-3753-4166-85d2-b11c48c55250}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -51,17 +57,17 @@
     <ClCompile Include="Textures.cpp">
       <Filter>Source Files\Basic class</Filter>
     </ClCompile>
-    <ClCompile Include="Simon.cpp">
-      <Filter>Source Files\Character</Filter>
-    </ClCompile>
-    <ClCompile Include="Keyboard.cpp">
-      <Filter>Source Files\Basic class</Filter>
-    </ClCompile>
     <ClCompile Include="Brick.cpp">
       <Filter>Source Files\Map</Filter>
     </ClCompile>
     <ClCompile Include="Camera.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Simon.cpp">
+      <Filter>Source Files\Character\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="GameScene.cpp">
+      <Filter>Source Files\Basic class</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -80,17 +86,17 @@
     <ClInclude Include="Textures.h">
       <Filter>Header Files\Basic class</Filter>
     </ClInclude>
-    <ClInclude Include="Simon.h">
-      <Filter>Header Files\Character</Filter>
-    </ClInclude>
-    <ClInclude Include="Keyboard.h">
-      <Filter>Header Files\Basic class</Filter>
-    </ClInclude>
     <ClInclude Include="Brick.h">
       <Filter>Header Files\Map</Filter>
     </ClInclude>
     <ClInclude Include="Camera.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Simon.h">
+      <Filter>Header Files\Character\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="GameScene.h">
+      <Filter>Header Files\Basic class</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -11,7 +11,10 @@ Camera::Camera(int w, int h/*, int b_left, int b_right*/)
 
 	vx = 0;
 }
-
+D3DXVECTOR2 Camera::Transform(float xWorld, float yWorld)
+{
+	return D3DXVECTOR2(xWorld - _xCam, yWorld - _yCam);
+}
 Camera::~Camera()
 {
 }

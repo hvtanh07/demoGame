@@ -2,6 +2,7 @@
 #include <Windows.h>
 #include <d3d9.h>
 #include <d3dx9.h>
+#include"GameScene.h"
 
 #define DIRECTINPUT_VERSION 0x0800
 #include <dinput.h>
@@ -10,16 +11,16 @@
 /*
 Abstract class to define keyboard event handlers
 */
-class CKeyEventHandler
-{
-public:
-	virtual void KeyState(BYTE* state) = 0;
-	virtual void OnKeyDown(int KeyCode) = 0;
-	virtual void OnKeyUp(int KeyCode) = 0;
-};
+//class CKeyEventHandler
+//{
+//public:
+//
+//	virtual void KeyState(BYTE* state) = 0;
+//	virtual void OnKeyDown(int KeyCode) = 0;
+//	virtual void OnKeyUp(int KeyCode) = 0;
+//};
 
-typedef CKeyEventHandler* LPKEYEVENTHANDLER;
-
+//typedef CKeyEventHandler* LPKEYEVENTHANDLER;
 class CGame
 {
 	static CGame* __instance;
@@ -37,13 +38,13 @@ class CGame
 	BYTE  keyStates[256];			// DirectInput keyboard state buffer 
 	DIDEVICEOBJECTDATA keyEvents[KEYBOARD_BUFFER_SIZE];		// Buffered keyboard data
 
-	LPKEYEVENTHANDLER keyHandler;
+	//LPKEYEVENTHANDLER keyHandler;
 
 	float cam_x = 0.0f;
 	float cam_y = 0.0f;
 
 public:
-	void InitKeyboard(LPKEYEVENTHANDLER handler);
+	void InitKeyboard();
 	void Init(HWND hWnd);
 	void Draw(float x, float y, LPDIRECT3DTEXTURE9 texture, int left, int top, int right, int bottom, int alpha = 255);
 

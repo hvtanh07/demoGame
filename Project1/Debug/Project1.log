@@ -1,9 +1,21 @@
-﻿  main.cpp
-D:\GIthub clone path\demoGame\Project1\main.cpp(283,20): warning C4018: '<': signed/unsigned mismatch
-D:\GIthub clone path\demoGame\Project1\main.cpp(288,20): warning C4018: '<': signed/unsigned mismatch
-D:\GIthub clone path\demoGame\Project1\main.cpp(352,41): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-D:\GIthub clone path\demoGame\Project1\main.cpp(352,38): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-D:\GIthub clone path\demoGame\Project1\main.cpp(356,21): warning C4018: '<': signed/unsigned mismatch
-D:\GIthub clone path\demoGame\Project1\main.cpp(422,19): warning C4244: 'initializing': conversion from 'ULONGLONG' to 'DWORD', possible loss of data
-D:\GIthub clone path\demoGame\Project1\main.cpp(435,13): warning C4244: 'initializing': conversion from 'ULONGLONG' to 'DWORD', possible loss of data
+﻿  Game.cpp
+D:\GIthub clone path\demoGame\Project1\Game.cpp(260,26): warning C4305: '=': truncation from '__int64' to 'float'
+D:\GIthub clone path\demoGame\Project1\Game.cpp(261,24): warning C4305: '=': truncation from '__int64' to 'float'
+D:\GIthub clone path\demoGame\Project1\Game.cpp(271,26): warning C4305: '=': truncation from '__int64' to 'float'
+  GameObject.cpp
+  GameScene.cpp
+D:\GIthub clone path\demoGame\Project1\Game.cpp(272,24): warning C4305: '=': truncation from '__int64' to 'float'
+D:\GIthub clone path\demoGame\Project1\GameScene.cpp(21,44): warning C4390: ';': empty controlled statement found; is this the intent?
+D:\GIthub clone path\demoGame\Project1\GameScene.cpp(200,20): warning C4018: '<': signed/unsigned mismatch
+D:\GIthub clone path\demoGame\Project1\GameScene.cpp(205,20): warning C4018: '<': signed/unsigned mismatch
+D:\GIthub clone path\demoGame\Project1\GameScene.cpp(255,40): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+D:\GIthub clone path\demoGame\Project1\GameScene.cpp(255,37): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+  Simon.cpp
+  Sprites.cpp
+  Textures.cpp
+  main.cpp
+D:\GIthub clone path\demoGame\Project1\GameScene.cpp(259,20): warning C4018: '<': signed/unsigned mismatch
+D:\GIthub clone path\demoGame\Project1\main.cpp(171,19): warning C4244: 'initializing': conversion from 'ULONGLONG' to 'DWORD', possible loss of data
+  Generating Code...
+D:\GIthub clone path\demoGame\Project1\main.cpp(184,13): warning C4244: 'initializing': conversion from 'ULONGLONG' to 'DWORD', possible loss of data
   Project1.vcxproj -> D:\GIthub clone path\demoGame\Project1\Debug\Project1.exe

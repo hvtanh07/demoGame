@@ -103,35 +103,23 @@ void CSIMON::Render()
 		if (vx == 0)
 		{
 			if (nx > 0)
-				ani = SIMON_ANI_BIG_IDLE_RIGHT;
+				ani = SIMON_ANI_IDLE_RIGHT;
 			else
-				ani = SIMON_ANI_BIG_IDLE_LEFT;
+				ani = SIMON_ANI_IDLE_LEFT;
 		}
 		else if (vx > 0)
-			ani = SIMON_ANI_BIG_WALKING_RIGHT;
-		else ani = SIMON_ANI_BIG_WALKING_LEFT;
+			ani = SIMON_ANI_WALKING_RIGHT;
+		else ani = SIMON_ANI_WALKING_LEFT;
 		if (state == SIMON_STATE_SQUAT)
 		{
 			if (nx > 0)ani = SIMON_ANI_SQUAT_RIGHT;
 			else ani = SIMON_ANI_SQUAT_LEFT;
 		}
 	}
-	/*else if (level == SIMON_LEVEL_SMALL)
-	{
-		if (vx == 0)
-		{
-			if (nx>0) ani = SIMON_ANI_SMALL_IDLE_RIGHT;
-			else ani = SIMON_ANI_SMALL_IDLE_LEFT;
-		}
-		else if (vx > 0)
-			ani = SIMON_ANI_SMALL_WALKING_RIGHT;
-		else ani = SIMON_ANI_SMALL_WALKING_LEFT;
-	}*/
 
 	int alpha = 255;
 	if (untouchable) alpha = 128;
 	animations[ani]->Render(x, y, alpha);
-
 	RenderBoundingBox();
 }
 
