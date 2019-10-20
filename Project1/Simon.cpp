@@ -22,7 +22,16 @@ void CSIMON::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	// turn off collision when die 
 	if (state != SIMON_STATE_DIE)
 		CalcPotentialCollisions(coObjects, coEvents);
-
+	if (GetTickCount() - jump_start > SIMON_JUMP_TIME)
+	{
+		jump_start = 0;
+		jump = 0;
+	}
+	if (GetTickCount() - attack_start > SIMON_ATTACK_TIME)
+	{
+		attack_start = 0;
+		attack = 0;
+	}
 	// reset untouchable timer if untouchable time has passed
 	if (GetTickCount() - untouchable_start > SIMON_UNTOUCHABLE_TIME)
 	{
@@ -94,31 +103,45 @@ void CSIMON::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 void CSIMON::Render()
 {
 	int ani;
-
 	if (state == SIMON_STATE_DIE)
 		ani = SIMON_ANI_DIE;
-
-	else
+	else if (state == SIMON_STATE_SIT)
+	{		
+		if (nx > 0)
+		{
+			ani = SIMON_ANI_SIT_RIGHT;
+		}
+		else ani = SIMON_ANI_SIT_LEFT;
+	}
+	else if (state == SIMON_STATE_IDLE)
 	{
 		if (vx == 0)
 		{
-			if (nx > 0)
-				ani = SIMON_ANI_IDLE_RIGHT;
-			else
-				ani = SIMON_ANI_IDLE_LEFT;
-		}
-		else if (vx > 0)
-			ani = SIMON_ANI_WALKING_RIGHT;
-		else ani = SIMON_ANI_WALKING_LEFT;
-		if (state == SIMON_STATE_SQUAT)
-		{
-			if (nx > 0)ani = SIMON_ANI_SQUAT_RIGHT;
-			else ani = SIMON_ANI_SQUAT_LEFT;
+			if (nx > 0) ani = SIMON_ANI_IDLE_RIGHT;
+			else ani = SIMON_ANI_IDLE_LEFT;
 		}
 	}
-
+	else if (state == SIMON_STATE_WALKING_RIGHT)
+	{
+		ani = SIMON_ANI_WALKING_RIGHT;
+	}
+	else if (state == SIMON_STATE_WALKING_LEFT)
+	{
+		ani = SIMON_ANI_WALKING_LEFT;
+	}
+	/*if (attack != 0)
+	{
+		if (nx > 0)
+			ani = SIMON_ANI_ATTACK_RIGHT;
+		else ani = SIMON_ANI_ATTACK_LEFT;
+	}*/
+	if (jump != 0)
+	{
+		if (nx > 0)
+			ani = SIMON_ANI_JUMP_RIGHT;
+		else ani = SIMON_ANI_JUMP_LEFT;
+	}
 	int alpha = 255;
-	if (untouchable) alpha = 128;
 	animations[ani]->Render(x, y, alpha);
 	RenderBoundingBox();
 }
@@ -142,13 +165,17 @@ void CSIMON::SetState(int state)
 	case SIMON_STATE_IDLE:
 		vx = 0;
 		break;
-	case SIMON_STATE_DIE:
-		vy = -SIMON_DIE_DEFLECT_SPEED;
-		break;
-	case SIMON_STATE_SQUAT:
+	case SIMON_STATE_SIT:
 		vx = 0;
+		sit = true;
 		break;
 	}
+}
+
+void CSIMON::Standup()
+{
+	y = y - PULL_UP_SIMON_AFTER_SITTING;
+	sit = false;
 }
 
 void CSIMON::GetBoundingBox(float& left, float& top, float& right, float& bottom)
@@ -158,15 +185,11 @@ void CSIMON::GetBoundingBox(float& left, float& top, float& right, float& bottom
 
 	right = x + SIMON_IDLE_BBOX_WIDTH;
 	bottom = y + SIMON_IDLE_BBOX_HEIGHT;
-	/*if (state == SIMON_STATE_IDLE)
+	
+	if (state == SIMON_STATE_SIT || state == SIMON_STATE_JUMP)
 	{
 		right = x + SIMON_IDLE_BBOX_WIDTH;
-		bottom = y + SIMON_IDLE_BBOX_HEIGHT;
-	}*/
-	if (state == SIMON_STATE_SQUAT)
-	{
-		right = x + SIMON_SQUAT_BBOX_WIDTH;
-		bottom = y + SIMON_SQUAT_BBOX_HEIGHT;
+		bottom = y + SIMON_SIT_BBOX_HEIGHT;
 	}
 }
 

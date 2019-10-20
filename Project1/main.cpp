@@ -45,7 +45,7 @@
 #define SCREEN_WIDTH 450
 #define SCREEN_HEIGHT 230
 
-#define MAX_FRAME_RATE 120
+#define MAX_FRAME_RATE 60.0f
 
 #define ID_TEX_SIMON 0
 #define ID_TEX_ENEMY 10

@@ -17,14 +17,20 @@ void GameScene::KeyState(BYTE* state)
 {
 	
 	// disable control key when SIMON die 
-	if (SIMON->GetState() == SIMON_STATE_DIE) return;
-	if (SIMON->GetState() == SIMON_STATE_JUMP);
+		if (SIMON->GetState() == SIMON_STATE_DIE) return;
 	if (CGame::GetInstance()->IsKeyDown(DIK_RIGHT))
-		SIMON->SetState(SIMON_STATE_WALKING_RIGHT);
+	{
+		if(!SIMON->getsit())SIMON->SetState(SIMON_STATE_WALKING_RIGHT);				
+	}
 	else if (CGame::GetInstance()->IsKeyDown(DIK_LEFT))
-		SIMON->SetState(SIMON_STATE_WALKING_LEFT);
+	{
+		if (!SIMON->getsit())SIMON->SetState(SIMON_STATE_WALKING_LEFT);
+	}
 	else if (CGame::GetInstance()->IsKeyDown(DIK_DOWN))
-		SIMON->SetState(SIMON_STATE_SQUAT);
+	{
+		SIMON->SetState(SIMON_STATE_SIT);
+		//SIMON->setsit(true);
+	}
 	else
 		SIMON->SetState(SIMON_STATE_IDLE);
 }
@@ -36,6 +42,7 @@ void GameScene::OnKeyDown(int KeyCode)
 	{
 	case DIK_SPACE:
 		SIMON->SetState(SIMON_STATE_JUMP);
+		SIMON->StartJump();
 		break;
 	case DIK_A: // reset
 		SIMON->SetState(SIMON_STATE_IDLE);
@@ -47,6 +54,9 @@ void GameScene::OnKeyDown(int KeyCode)
 
 void GameScene::OnKeyUp(int KeyCode)
 {
+	if (KeyCode == 208) {
+		SIMON->Standup();
+	}
 	DebugOut(L"[INFO] KeyUp: %d\n", KeyCode);
 }
 
@@ -56,7 +66,7 @@ void GameScene::LoadResources()
 	CSprites* sprites = CSprites::GetInstance();
 	CAnimations* animations = CAnimations::GetInstance();
 
-	textures->Add(ID_TEX_SIMON, L"textures\\simon-ii.png", D3DCOLOR_XRGB(255, 0, 255));
+	textures->Add(ID_TEX_SIMON, L"textures\\Simon.png", D3DCOLOR_XRGB(255, 0, 255));
 	textures->Add(ID_TEX_MISC, L"textures\\brick1.png", D3DCOLOR_XRGB(0, 0, 0));
 	textures->Add(ID_TEX_ENEMY, L"textures\\enemies.png", D3DCOLOR_XRGB(3, 26, 110));
 	textures->Add(ID_TEX_ENTRANCESTAGE, L"textures\\entrance.png", D3DCOLOR_XRGB(255, 255, 255));
@@ -87,7 +97,7 @@ void GameScene::LoadResources()
 	int flag = 0;
 	int number;
 	int arr[5];
-	ifstream file_simon("simon_i.txt");
+	ifstream file_simon("Simon.txt");
 	if (file_simon.is_open())
 	{
 		while (!file_simon.eof())
@@ -108,7 +118,7 @@ void GameScene::LoadResources()
 	sprites->Add(10099, 215, 120, 231, 135, texSIMON);		// die 
 
 	LPDIRECT3DTEXTURE9 texMisc = textures->Get(ID_TEX_MISC);
-	sprites->Add(20001, 0, 0, 32, 32, texMisc);
+	sprites->Add(90001, 0, 0, 32, 32, texMisc);
 
 	LPDIRECT3DTEXTURE9 texEnemy = textures->Get(ID_TEX_ENEMY);
 
@@ -123,62 +133,65 @@ void GameScene::LoadResources()
 	animations->Add(401, ani);
 
 
-	ani = new CAnimation(100);	// walk right big
-	ani->Add(10001);
+	ani = new CAnimation(100);	// walk right
 	ani->Add(10002);
 	ani->Add(10003);
 	animations->Add(500, ani);
-
-	ani = new CAnimation(100);	// // walk left big
-	ani->Add(10011);
+	ani = new CAnimation(100);	//  walk left
 	ani->Add(10012);
 	ani->Add(10013);
 	animations->Add(501, ani);
 
-	ani = new CAnimation(100);	// // walk squat left
-	ani->Add(10014);
-	animations->Add(801, ani);
-
-	ani = new CAnimation(100);	// // walk squat right
+	ani = new CAnimation(100);	// attack right
 	ani->Add(10004);
-	animations->Add(800, ani);
+	ani->Add(10005);
+	ani->Add(10006);
+	animations->Add(402, ani);
+	ani = new CAnimation(100);	// attack left
+	ani->Add(10014);
+	ani->Add(10015);
+	ani->Add(10016);
+	animations->Add(502, ani);
 
-	ani = new CAnimation(100);		// SIMON die
-	ani->Add(10099);
-	animations->Add(599, ani);
+	ani = new CAnimation(100);	// jump right
+	ani->Add(10008);
+	animations->Add(403, ani);
+	ani = new CAnimation(100);	// jump right
+	ani->Add(10018);
+	animations->Add(503, ani);
+
+	ani = new CAnimation(100);	// sit left
+	ani->Add(10008);
+	animations->Add(404, ani);
+	ani = new CAnimation(100);	// sit right
+	ani->Add(10018);
+	animations->Add(504, ani);
 
 
 
 	ani = new CAnimation(100);		// brick
-	ani->Add(20001);
+	ani->Add(90001);
 	animations->Add(601, ani);
 
-	ani = new CAnimation(300);		// Goomba walk
-	ani->Add(30001);
-	ani->Add(30002);
-	animations->Add(701, ani);
-
-	ani = new CAnimation(1000);		// Goomba dead
-	ani->Add(30003);
-	animations->Add(702, ani);
+	ani = new CAnimation(100);
+	ani->Add(20001);
+	ani->Add(20002);
+	ani->Add(20003);
+	animations->Add(600, ani);
 
 	SIMON = new CSIMON();
-	SIMON->AddAnimation(400);		// idle right big
-	SIMON->AddAnimation(401);		// idle left big
-
-	SIMON->AddAnimation(500);		// walk right big
-	SIMON->AddAnimation(501);		// walk left big
-
-	SIMON->AddAnimation(800);
-	SIMON->AddAnimation(801);
-
-	SIMON->AddAnimation(599);		// die
-
+	SIMON->AddAnimation(400);		// idle right 
+	SIMON->AddAnimation(401);		// idle left 
+	SIMON->AddAnimation(500);		// walk right 
+	SIMON->AddAnimation(501);		// walk left 
+	SIMON->AddAnimation(402);       //attack right
+	SIMON->AddAnimation(502);       //attack left
+	SIMON->AddAnimation(403);       //jump right
+	SIMON->AddAnimation(503);       //jump left
+	SIMON->AddAnimation(404);       //sit right
+	SIMON->AddAnimation(504);       //siy left
 	SIMON->SetPosition(50.0f, 0);
-	/*if (SIMON->GetState() == SIMON_STATE_SQUAT)
-	{
-		SIMON->SetPosition(50.0f-20.0f, 0);
-	}*/
+
 	objects.push_back(SIMON);
 
 
@@ -186,7 +199,7 @@ void GameScene::LoadResources()
 	{
 		CBrick* brick = new CBrick();
 		brick->AddAnimation(601);
-		brick->SetPosition(i * 16.0f, 160);
+		brick->SetPosition(i * 10.0f, 160);
 		objects.push_back(brick);
 	}
 }

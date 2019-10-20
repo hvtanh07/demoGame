@@ -12,45 +12,58 @@
 #define SIMON_STATE_IDLE			0
 #define SIMON_STATE_WALKING_RIGHT	100
 #define SIMON_STATE_WALKING_LEFT	200
-#define SIMON_STATE_SQUAT		500
+//#define SIMON_STATE_SQUAT		500
 
 #define SIMON_STATE_JUMP			300
 #define SIMON_STATE_DIE				400
+#define SIMON_STATE_ATTACK 500
+#define SIMON_STATE_SIT 600
 
 #define SIMON_ANI_IDLE_RIGHT		0
 #define SIMON_ANI_IDLE_LEFT			1
-/*#define SIMON_ANI_SMALL_IDLE_RIGHT		2
-#define SIMON_ANI_SMALL_IDLE_LEFT			3*/
+
 
 #define SIMON_ANI_WALKING_RIGHT			2
 #define SIMON_ANI_WALKING_LEFT			3
 #define SIMON_ANI_SQUAT_RIGHT				4
 #define SIMON_ANI_SQUAT_LEFT				5
-//#define SIMON_ANI_SMALL_WALKING_LEFT		7*/
 
-#define SIMON_ANI_DIE				6
+#define SIMON_ANI_JUMP_RIGHT 6
+#define SIMON_ANI_JUMP_LEFT 7
 
-#define SIMON_IDLE_BBOX_WIDTH  15
+#define SIMON_ANI_SIT_RIGHT 8
+#define SIMON_ANI_SIT_LEFT 9
+
+#define SIMON_ANI_DIE		99		
+
+#define SIMON_IDLE_BBOX_WIDTH  16
 #define SIMON_IDLE_BBOX_HEIGHT 30
+#define SIMON_SIT_BBOX_HEIGHT 20
 
-#define SIMON_SQUAT_BBOX_WIDTH  15
-#define SIMON_SQUAT_BBOX_HEIGHT 20
-
-/*#define SIMON_SMALL_BBOX_WIDTH  12
-#define SIMON_SMALL_BBOX_HEIGHT 15*/
-
-#define SIMON_UNTOUCHABLE_TIME 5000
-
+#define SIMON_UNTOUCHABLE_TIME 500
+#define SIMON_JUMP_TIME 500
+#define SIMON_ATTACK_TIME 300
+#define PULL_UP_SIMON_AFTER_SITTING 10.0f;
 
 class CSIMON : public CGameObject
 {
+	int jump;
+	int attack;
+	int right;
 	int untouchable;
 	DWORD untouchable_start;
-	
+	bool sit = false;
+	DWORD jump_start;
+	DWORD attack_start;
 public:
 	CSIMON() : CGameObject()
 	{
 		untouchable = 0;
+		jump = 0;
+		attack = 0;
+		sit = false;
+		/*MS = new CBrick();
+		MS->SetActive(true);*/
 	}
 	~CSIMON() {
 
@@ -60,6 +73,10 @@ public:
 	
 	void SetState(int state);
 	void StartUntouchable() { untouchable = 1; untouchable_start = GetTickCount(); }
-
-	virtual void GetBoundingBox(float& left, float& top, float& right, float& bottom);
+	void StartJump() { jump = 1; jump_start = GetTickCount(); }
+	void StartAttack() { attack = 1; attack_start = GetTickCount(); }
+	bool getsit() { return sit; }
+	void Standup();
+	void CheckCollisionWithGround(DWORD dt, vector<LPGAMEOBJECT>* colliable_objects);
+	void GetBoundingBox(float& left, float& top, float& right, float& bottom);
 };
