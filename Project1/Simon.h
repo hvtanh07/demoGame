@@ -4,14 +4,14 @@
 #define SIMON_WALKING_SPEED		0.1f 
 #define PULL_UP_SIMON_AFTER_SITTING 18.0f
 //0.1f
-#define SIMON_JUMP_SPEED_Y		0.5f
+#define SIMON_JUMP_SPEED_Y		0.22f
 #define SIMON_JUMP_DEFLECT_SPEED 0.2f
-#define SIMON_GRAVITY			0.002f
+#define SIMON_GRAVITY			0.0006f
 #define SIMON_DIE_DEFLECT_SPEED	 0.5f
 
 #define SIMON_STATE_IDLE			0
-#define SIMON_STATE_WALKING_RIGHT	100
-#define SIMON_STATE_WALKING_LEFT	200
+#define SIMON_RIGHT					100
+#define SIMON_LEFT					200
 //#define SIMON_STATE_SQUAT		500
 
 #define SIMON_STATE_JUMP			300
@@ -41,9 +41,10 @@
 #define SIMON_SIT_BBOX_HEIGHT 20
 
 #define SIMON_UNTOUCHABLE_TIME 500
-#define SIMON_JUMP_TIME 400
+#define SIMON_JUMP_TIME 800
 #define SIMON_ATTACK_TIME 300
 #define PULL_UP_SIMON_AFTER_SITTING 10.0f;
+#define PULL_UP_SIMON_AFTER_JUMP 10.0f;
 
 class CSIMON : public CGameObject
 {
@@ -57,6 +58,8 @@ class CSIMON : public CGameObject
 	DWORD untouchable_start;
 	DWORD jump_start;
 	DWORD attack_start;
+
+	//isCollisionAxisYWithBrick = false;
 public:
 	CSIMON() : CGameObject()
 	{
@@ -78,7 +81,8 @@ public:
 	void StartJump() { jump = true; jump_start = GetTickCount(); }
 	void StartAttack() { attack = 1; attack_start = GetTickCount(); }
 	bool getsit() { return sit; }
+	void sitdown();
 	void Standup();
-	void CheckCollisionWithGround(DWORD dt, vector<LPGAMEOBJECT>* colliable_objects);
+	void CheckCollisionWithGround(LPCOLLISIONEVENT e);
 	void GetBoundingBox(float& left, float& top, float& right, float& bottom);
 };

@@ -20,11 +20,11 @@ void GameScene::KeyState(BYTE* state)
 		if (SIMON->GetState() == SIMON_STATE_DIE) return;
 	if (CGame::GetInstance()->IsKeyDown(DIK_RIGHT))
 	{
-		if(!SIMON->getsit())SIMON->SetState(SIMON_STATE_WALKING_RIGHT);				
+		SIMON->SetState(SIMON_RIGHT);				
 	}
 	else if (CGame::GetInstance()->IsKeyDown(DIK_LEFT))
 	{
-		if (!SIMON->getsit())SIMON->SetState(SIMON_STATE_WALKING_LEFT);
+		SIMON->SetState(SIMON_LEFT);
 	}
 	else if (CGame::GetInstance()->IsKeyDown(DIK_DOWN))
 	{
@@ -41,7 +41,7 @@ void GameScene::OnKeyDown(int KeyCode)
 	{
 	case DIK_SPACE:
 		SIMON->SetState(SIMON_STATE_JUMP);
-		SIMON->StartJump();
+		//SIMON->StartJump();
 		break;
 	case DIK_A: // reset
 		SIMON->SetState(SIMON_STATE_IDLE);
