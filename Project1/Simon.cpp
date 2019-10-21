@@ -25,7 +25,7 @@ void CSIMON::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	if (GetTickCount() - jump_start > SIMON_JUMP_TIME)
 	{
 		jump_start = 0;
-		jump = 0;
+		jump = false;
 	}
 	if (GetTickCount() - attack_start > SIMON_ATTACK_TIME)
 	{
@@ -167,7 +167,11 @@ void CSIMON::SetState(int state)
 		break;
 	case SIMON_STATE_SIT:
 		vx = 0;
-		sit = true;
+		if (sit == false) {
+			y += PULL_UP_SIMON_AFTER_SITTING;
+			sit = true;
+		}
+		
 		break;
 	}
 }
@@ -186,10 +190,10 @@ void CSIMON::GetBoundingBox(float& left, float& top, float& right, float& bottom
 	right = x + SIMON_IDLE_BBOX_WIDTH;
 	bottom = y + SIMON_IDLE_BBOX_HEIGHT;
 	
-	if (state == SIMON_STATE_SIT || state == SIMON_STATE_JUMP)
+	if (sit|| jump)
 	{
-		right = x + SIMON_IDLE_BBOX_WIDTH;
 		bottom = y + SIMON_SIT_BBOX_HEIGHT;
+		//top = y + PULL_UP_SIMON_AFTER_SITTING;
 	}
 }
 

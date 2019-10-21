@@ -29,7 +29,6 @@ void GameScene::KeyState(BYTE* state)
 	else if (CGame::GetInstance()->IsKeyDown(DIK_DOWN))
 	{
 		SIMON->SetState(SIMON_STATE_SIT);
-		//SIMON->setsit(true);
 	}
 	else
 		SIMON->SetState(SIMON_STATE_IDLE);
@@ -48,6 +47,10 @@ void GameScene::OnKeyDown(int KeyCode)
 		SIMON->SetState(SIMON_STATE_IDLE);
 		SIMON->SetPosition(50.0f, 0.0f);
 		SIMON->SetSpeed(0, 0);
+		break;
+	case DIK_R: // reset
+		for (int i = 0; i < objects.size(); i++)
+			objects[i]->Setbboxrender();
 		break;
 	}
 }

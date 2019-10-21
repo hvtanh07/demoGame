@@ -41,18 +41,20 @@
 #define SIMON_SIT_BBOX_HEIGHT 20
 
 #define SIMON_UNTOUCHABLE_TIME 500
-#define SIMON_JUMP_TIME 500
+#define SIMON_JUMP_TIME 400
 #define SIMON_ATTACK_TIME 300
 #define PULL_UP_SIMON_AFTER_SITTING 10.0f;
 
 class CSIMON : public CGameObject
 {
-	int jump;
+	bool jump;
 	int attack;
-	int right;
+	//int right;
 	int untouchable;
-	DWORD untouchable_start;
 	bool sit = false;
+
+
+	DWORD untouchable_start;
 	DWORD jump_start;
 	DWORD attack_start;
 public:
@@ -61,7 +63,7 @@ public:
 		untouchable = 0;
 		jump = 0;
 		attack = 0;
-		sit = false;
+		//sit = false;
 		/*MS = new CBrick();
 		MS->SetActive(true);*/
 	}
@@ -73,7 +75,7 @@ public:
 	
 	void SetState(int state);
 	void StartUntouchable() { untouchable = 1; untouchable_start = GetTickCount(); }
-	void StartJump() { jump = 1; jump_start = GetTickCount(); }
+	void StartJump() { jump = true; jump_start = GetTickCount(); }
 	void StartAttack() { attack = 1; attack_start = GetTickCount(); }
 	bool getsit() { return sit; }
 	void Standup();
