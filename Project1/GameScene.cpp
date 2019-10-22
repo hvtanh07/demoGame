@@ -41,12 +41,9 @@ void GameScene::OnKeyDown(int KeyCode)
 	{
 	case DIK_SPACE:
 		SIMON->SetState(SIMON_STATE_JUMP);
-		//SIMON->StartJump();
 		break;
 	case DIK_A: // reset
-		SIMON->SetState(SIMON_STATE_IDLE);
-		SIMON->SetPosition(50.0f, 0.0f);
-		SIMON->SetSpeed(0, 0);
+		SIMON->SetState(SIMON_STATE_ATTACK);
 		break;
 	case DIK_R: // reset
 		for (int i = 0; i < objects.size(); i++)
@@ -150,6 +147,7 @@ void GameScene::LoadResources()
 	ani->Add(10005);
 	ani->Add(10006);
 	animations->Add(402, ani);
+
 	ani = new CAnimation(100);	// attack left
 	ani->Add(10014);
 	ani->Add(10015);
@@ -183,16 +181,16 @@ void GameScene::LoadResources()
 	animations->Add(600, ani);
 
 	SIMON = new CSIMON();
-	SIMON->AddAnimation(400);		// idle right 
-	SIMON->AddAnimation(401);		// idle left 
-	SIMON->AddAnimation(500);		// walk right 
-	SIMON->AddAnimation(501);		// walk left 
-	SIMON->AddAnimation(402);       //attack right
-	SIMON->AddAnimation(502);       //attack left
-	SIMON->AddAnimation(403);       //jump right
-	SIMON->AddAnimation(503);       //jump left
-	SIMON->AddAnimation(404);       //sit right
-	SIMON->AddAnimation(504);       //siy left
+	SIMON->AddAnimation(400);		// idle right 0
+	SIMON->AddAnimation(401);		// idle left 1
+	SIMON->AddAnimation(500);		// walk right 2
+	SIMON->AddAnimation(501);		// walk left 3
+	SIMON->AddAnimation(402);       //attack right 4
+	SIMON->AddAnimation(502);       //attack left 5
+	SIMON->AddAnimation(403);       //jump right 6
+	SIMON->AddAnimation(503);       //jump left 7
+	SIMON->AddAnimation(404);       //sit right 8
+	SIMON->AddAnimation(504);       //sit left 9
 	SIMON->SetPosition(50.0f, 0);
 
 	objects.push_back(SIMON);
@@ -246,12 +244,6 @@ void GameScene::Render()
 	CSprites* sprites = CSprites::GetInstance();
 	int x = 0, y = 0;
 	int flag = 1;
-	/*sprites->Get(1)->Draw(0,0 );
-	sprites->Get(2)->Draw(0, 32);
-	sprites->Get(3)->Draw(0, 64);*/
-
-	//for (int i = 1; i <= 38; i++)
-	//{
 	int i, j;
 	ifstream file_entrance("entrance.txt");
 	int number;

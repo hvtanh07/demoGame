@@ -22,11 +22,11 @@
 #define SIMON_ANI_IDLE_RIGHT		0
 #define SIMON_ANI_IDLE_LEFT			1
 
-
 #define SIMON_ANI_WALKING_RIGHT			2
 #define SIMON_ANI_WALKING_LEFT			3
-#define SIMON_ANI_SQUAT_RIGHT				4
-#define SIMON_ANI_SQUAT_LEFT				5
+
+#define SIMON_ANI_ATTACK_RIGHT 4
+#define SIMON_ANI_ATTACK_LEFT 5
 
 #define SIMON_ANI_JUMP_RIGHT 6
 #define SIMON_ANI_JUMP_LEFT 7
@@ -49,7 +49,7 @@
 class CSIMON : public CGameObject
 {
 	bool jump;
-	int attack;
+	bool attack;
 	//int right;
 	int untouchable;
 	bool sit = false;
@@ -79,7 +79,7 @@ public:
 	void SetState(int state);
 	void StartUntouchable() { untouchable = 1; untouchable_start = GetTickCount(); }
 	void StartJump() { jump = true; jump_start = GetTickCount(); }
-	void StartAttack() { attack = 1; attack_start = GetTickCount(); }
+	void StartAttack() { attack = true; attack_start = GetTickCount(); }
 	bool getsit() { return sit; }
 	void sitdown();
 	void Standup();

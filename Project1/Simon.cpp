@@ -85,6 +85,12 @@ void CSIMON::Render()
 			else ani = SIMON_ANI_IDLE_LEFT;
 		}
 	}
+	if (jump != 0)
+	{
+		if (nx > 0)
+			ani = SIMON_ANI_JUMP_RIGHT;
+		else ani = SIMON_ANI_JUMP_LEFT;
+	}
 	else if (state == SIMON_RIGHT)
 	{
 		if (!sit)ani = SIMON_ANI_WALKING_RIGHT;
@@ -103,19 +109,13 @@ void CSIMON::Render()
 		}
 		else ani = SIMON_ANI_SIT_LEFT;
 	}
-	
-	/*if (attack != 0)
+	if (attack != 0)
 	{
 		if (nx > 0)
 			ani = SIMON_ANI_ATTACK_RIGHT;
 		else ani = SIMON_ANI_ATTACK_LEFT;
-	}*/
-	if (jump != 0)
-	{
-		if (nx > 0)
-			ani = SIMON_ANI_JUMP_RIGHT;
-		else ani = SIMON_ANI_JUMP_LEFT;
 	}
+	
 	int alpha = 255;
 	animations[ani]->Render(x, y, alpha);
 	RenderBoundingBox();
@@ -146,19 +146,21 @@ void CSIMON::SetState(int state)
 	case SIMON_STATE_SIT:
 		vx = 0;
 		if (!sit) sitdown();
-		
 		break;
+	case SIMON_STATE_ATTACK:
+		vx = 0;
+		if (!attack)StartAttack();
 	}
 }
 void CSIMON::sitdown() {
-	y += PULL_UP_SIMON_AFTER_SITTING;
+	if(!jump)y += PULL_UP_SIMON_AFTER_SITTING;
 	sit = true;
 }
 void CSIMON::Standup()
 {
 	y = y - PULL_UP_SIMON_AFTER_SITTING;
 	sit = false;
-	jump = false;
+	//jump = false;
 }
 
 void CSIMON::CheckCollisionWithGround(LPCOLLISIONEVENT e)
@@ -169,7 +171,7 @@ void CSIMON::CheckCollisionWithGround(LPCOLLISIONEVENT e)
 		if (jump)
 		{
 			jump = false;
-			y = y - PULL_UP_SIMON_AFTER_JUMP;
+			if (!sit)y = y - PULL_UP_SIMON_AFTER_JUMP;
 		}
 	}
 }
@@ -183,7 +185,7 @@ void CSIMON::GetBoundingBox(float& left, float& top, float& right, float& bottom
 	
 	if (sit||jump)
 	{
-		bottom = y + SIMON_SIT_BBOX_HEIGHT;
+		if (!attack)bottom = y + SIMON_SIT_BBOX_HEIGHT;
 	}
 }
 
