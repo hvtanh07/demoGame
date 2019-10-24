@@ -69,6 +69,12 @@
     <ClCompile Include="GameScene.cpp">
       <Filter>Source Files\Basic class</Filter>
     </ClCompile>
+    <ClCompile Include="MorningStar.cpp">
+      <Filter>Source Files\Character\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="Torch.cpp">
+      <Filter>Source Files\Map</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="debug.h">
@@ -97,6 +103,12 @@
     </ClInclude>
     <ClInclude Include="GameScene.h">
       <Filter>Header Files\Basic class</Filter>
+    </ClInclude>
+    <ClInclude Include="MorningStar.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Torch.h">
+      <Filter>Header Files\Map</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

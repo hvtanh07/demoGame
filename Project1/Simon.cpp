@@ -1,16 +1,13 @@
 ﻿#include <algorithm>
 #include "debug.h"
-
 #include "SIMON.h"
-#include "Game.h"
-#include "Brick.h"
+
 
 
 void CSIMON::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
 	// Calculate dx, dy 
 	CGameObject::Update(dt);
-	
 	// Simple fall down
 	vy += SIMON_GRAVITY * dt;
 
@@ -152,13 +149,17 @@ void CSIMON::SetState(int state)
 		if (!attack)StartAttack();
 	}
 }
+void CSIMON::attacking()
+{
+	
+}
 void CSIMON::sitdown() {
 	if(!jump)y += PULL_UP_SIMON_AFTER_SITTING;
 	sit = true;
 }
 void CSIMON::Standup()
 {
-	y = y - PULL_UP_SIMON_AFTER_SITTING;
+	if (!jump)y = y - PULL_UP_SIMON_AFTER_SITTING;
 	sit = false;
 	//jump = false;
 }
@@ -167,7 +168,7 @@ void CSIMON::CheckCollisionWithGround(LPCOLLISIONEVENT e)
 {	
 	if (dynamic_cast<CBrick*>(e->obj)) // if e->obj is Brick
 	{
-		CBrick* brick = dynamic_cast<CBrick*>(e->obj);
+		//CBrick* brick = dynamic_cast<CBrick*>(e->obj);
 		if (jump)
 		{
 			jump = false;

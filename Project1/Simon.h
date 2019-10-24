@@ -1,5 +1,8 @@
 #pragma once
 #include "GameObject.h"
+#include "MorningStar.h"
+#include "Game.h"
+#include "Brick.h"
 
 #define SIMON_WALKING_SPEED		0.1f 
 #define PULL_UP_SIMON_AFTER_SITTING 18.0f
@@ -54,7 +57,6 @@ class CSIMON : public CGameObject
 	int untouchable;
 	bool sit = false;
 
-
 	DWORD untouchable_start;
 	DWORD jump_start;
 	DWORD attack_start;
@@ -81,6 +83,7 @@ public:
 	void StartJump() { jump = true; jump_start = GetTickCount(); }
 	void StartAttack() { attack = true; attack_start = GetTickCount(); }
 	bool getsit() { return sit; }
+	void attacking();
 	void sitdown();
 	void Standup();
 	void CheckCollisionWithGround(LPCOLLISIONEVENT e);

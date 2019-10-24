@@ -11,6 +11,8 @@
 #include "SIMON.h"
 #include "Brick.h"
 #include "Camera.h"
+#include "MorningStar.h"
+#include "Torch.h"
 
 #include<fstream>
 #include<iostream>
@@ -21,6 +23,7 @@
 #define ID_TEX_SIMON 0
 #define ID_TEX_ENEMY 10
 #define ID_TEX_MISC 20
+#define ID_TEX_TORCH 30
 
 #define ID_TEX_ENTRANCESTAGE 100
 

@@ -3,6 +3,7 @@
 
 
 CSIMON* SIMON;
+MorningStar* morningstar;
 vector<LPGAMEOBJECT> objects;
 
 GameScene* GameScene::_Instance = NULL;
@@ -40,10 +41,14 @@ void GameScene::OnKeyDown(int KeyCode)
 	switch (KeyCode)
 	{
 	case DIK_SPACE:
+		if (!CGame::GetInstance()->IsKeyDown(DIK_DOWN))
 		SIMON->SetState(SIMON_STATE_JUMP);
 		break;
 	case DIK_A: // reset
 		SIMON->SetState(SIMON_STATE_ATTACK);
+		morningstar->SetActive(true);
+		morningstar->StartAttack();
+		morningstar->SetState(WHIP_STATE_ATTACK);
 		break;
 	case DIK_R: // reset
 		for (int i = 0; i < objects.size(); i++)
@@ -67,6 +72,7 @@ void GameScene::LoadResources()
 	CAnimations* animations = CAnimations::GetInstance();
 
 	textures->Add(ID_TEX_SIMON, L"textures\\Simon.png", D3DCOLOR_XRGB(255, 0, 255));
+	textures->Add(ID_TEX_TORCH, L"textures\\object.png", D3DCOLOR_XRGB(255, 0, 255));
 	textures->Add(ID_TEX_MISC, L"textures\\brick1.png", D3DCOLOR_XRGB(0, 0, 0));
 	textures->Add(ID_TEX_ENEMY, L"textures\\enemies.png", D3DCOLOR_XRGB(3, 26, 110));
 	textures->Add(ID_TEX_ENTRANCESTAGE, L"textures\\entrance.png", D3DCOLOR_XRGB(255, 255, 255));
@@ -119,6 +125,8 @@ void GameScene::LoadResources()
 
 	LPDIRECT3DTEXTURE9 texMisc = textures->Get(ID_TEX_MISC);
 	sprites->Add(90001, 0, 0, 32, 32, texMisc);
+	LPDIRECT3DTEXTURE9 texTorch = textures->Get(ID_TEX_TORCH);
+	sprites->Add(90002, 47, 25, 64, 56, texTorch);
 
 	LPDIRECT3DTEXTURE9 texEnemy = textures->Get(ID_TEX_ENEMY);
 
@@ -168,17 +176,25 @@ void GameScene::LoadResources()
 	ani->Add(10018);
 	animations->Add(504, ani);
 
-
-
 	ani = new CAnimation(100);		// brick
 	ani->Add(90001);
-	animations->Add(601, ani);
+	animations->Add(1000, ani);
 
-	ani = new CAnimation(100);
+	ani = new CAnimation(100);		// torch
+	ani->Add(90002);
+	animations->Add(1001, ani);
+
+	ani = new CAnimation(100);		//mornig star
 	ani->Add(20001);
 	ani->Add(20002);
 	ani->Add(20003);
 	animations->Add(600, ani);
+
+	ani = new CAnimation(100);  //left morning starr
+	ani->Add(20011);
+	ani->Add(20012);
+	ani->Add(20013);
+	animations->Add(601, ani);
 
 	SIMON = new CSIMON();
 	SIMON->AddAnimation(400);		// idle right 0
@@ -193,16 +209,27 @@ void GameScene::LoadResources()
 	SIMON->AddAnimation(504);       //sit left 9
 	SIMON->SetPosition(50.0f, 0);
 
-	objects.push_back(SIMON);
-
+	morningstar = new MorningStar(SIMON);
+	morningstar->AddAnimation(600);
+	morningstar->AddAnimation(601);
 
 	for (int i = 0; i < 100; i++)
 	{
 		CBrick* brick = new CBrick();
-		brick->AddAnimation(601);
+		brick->AddAnimation(1000);
 		brick->SetPosition(i * 10.0f, 160);
 		objects.push_back(brick);
 	}
+	for (int i = 0; i < 4; i++)
+	{
+		Torch* torch = new Torch();
+		torch->AddAnimation(1001);
+		torch->SetPosition(150 + i * 150.0f, 130);
+		objects.push_back(torch);
+	}
+	objects.push_back(SIMON);
+	objects.push_back(morningstar);
+
 }
 
 void GameScene::Update(DWORD dt)

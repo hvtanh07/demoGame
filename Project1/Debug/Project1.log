@@ -1,4 +1,5 @@
-﻿  Simon.cpp
-D:\GIthub clone path\demoGame\Project1\SIMON.h(46,1): warning C4005: 'PULL_UP_SIMON_AFTER_SITTING': macro redefinition
-D:\GIthub clone path\demoGame\Project1\SIMON.h(5): message : see previous definition of 'PULL_UP_SIMON_AFTER_SITTING'
+﻿  Torch.cpp
+D:\GIthub clone path\demoGame\Project1\Simon.h(49,1): warning C4005: 'PULL_UP_SIMON_AFTER_SITTING': macro redefinition
+D:\GIthub clone path\demoGame\Project1\Simon.h(8): message : see previous definition of 'PULL_UP_SIMON_AFTER_SITTING'
+D:\GIthub clone path\demoGame\Project1\Torch.cpp(35,20): warning C4805: '!=': unsafe mix of type 'boolean' and type 'bool' in operation
   Project1.vcxproj -> D:\GIthub clone path\demoGame\Project1\Debug\Project1.exe
